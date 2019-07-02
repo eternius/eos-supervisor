@@ -1,4 +1,36 @@
 - commits:
+    - subject: >-
+        fix: When reporting initial config, avoid creating a "VPN enabled"
+        unnecessary override
+      hash: 743c8406c973af7ef85ff31ea8bb0bc99d4592fb
+      body: >
+        Since we were comparing the VPN's value before adding the explicit
+        "true", there were cases
+
+        were the VPN is off, and therefore "value" didn't match the default, so
+        the supervisor would
+
+        create a device specific SUPERVISOR_VPN_CONTROL = true, which is
+        unnecessary and causes issues if
+
+        users don't expect this and move the device to an app that has VPN
+        disabled. The correct behavior
+
+        is to compare "varValue" and only create a device config var if this
+        value differs from the default.
+
+
+        (This was the behavior before the TS conversion in
+        01ed7bb103b4df8fb0679cf858220db42d4a0b92 )
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Pablo Carranza Velez <pablo@balena.io>
+        signed-off-by: Pablo Carranza Velez <pablo@balena.io>
+      author: Pablo Carranza Velez
+  version: 9.18.4
+  date: 2019-07-02T07:10:40.148Z
+- commits:
     - subject: Add mocha tests linter
       hash: 36fa23ab7dcd76e7eb207e59b2ebcca8560a015f
       body: >
