@@ -141,6 +141,7 @@ describe 'ApplicationManager', ->
 				}
 			})
 		stub(@applications.docker, 'getNetworkGateway').returns(Promise.resolve('172.17.0.1'))
+		stub(@applications.docker, 'listContainers').returns(Promise.resolve([]))
 		stub(Service, 'extendEnvVars').callsFake (env) ->
 			env['ADDITIONAL_ENV_VAR'] = 'foo'
 			return env
@@ -191,6 +192,7 @@ describe 'ApplicationManager', ->
 	after ->
 		@applications.images.inspectByName.restore()
 		@applications.docker.getNetworkGateway.restore()
+		@applications.docker.listContainers.restore()
 		Service.extendEnvVars.restore()
 
 	it 'infers a start step when all that changes is a running state', ->
