@@ -1,4 +1,28 @@
 - commits:
+    - subject: 'Support network_modes of service:<servicename>'
+      hash: 11bb84383871ad042e51e971843f88d13e951c3e
+      body: |
+        That way that this is performed is by first adding a depends_on entry
+        for the target service if it appears in a network mode. Then when we
+        generate the docker container for this service, we use the containerId
+        of the target container and replace the network_mode with
+        `container:<id>`.
+
+        When comparing state, we check that the containerId still points to the
+        contianerId of the target container, and in this way we ensure that
+        when a network mode target container changes, we change the dependent
+        container too.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Closes: '#851'
+        closes: '#851'
+        Signed-off-by: Cameron Diver <cameron@balena.io>
+        signed-off-by: Cameron Diver <cameron@balena.io>
+      author: Cameron Diver
+  version: 10.1.0
+  date: 2019-07-15T15:56:56.297Z
+- commits:
     - subject: Don't attempt to cleanup any target state referenced volumes
       hash: a796777967facb96ade32f5a06e256b3b92d1e4b
       body: |
